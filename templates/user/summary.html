@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include '/user/nav.html' %}
+<h4 class="mb-3">All Parking Records</h4>
+<table class="table table-bordered table-striped table-sm">
+  <thead>
+    <tr>
+      <th>S.no</th>
+      <th>Vehicle</th>
+      <th>Location</th>
+      <th>Spot</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Duration</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservations %}
+    <tr>
+      <td>{{ loop.index}}</td>
+      <td>{{ r.vehicle_no }}</td>
+      <td>{{ r.spot.lot.prime_location_name }}</td>
+      <td>{{ r.spot.spot_number }}</td>
+      <td>{{ r.parking_timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>
+        {% if r.leaving_timestamp %}
+          {{ r.leaving_timestamp.strftime('%Y-%m-%d %H:%M') }}
+        {% else %}
+          <span class="text-muted">Still Parked</span>
+        {% endif %}
+      </td>
+      <td>
+        {% if r.leaving_timestamp %}
+          {{ ((r.leaving_timestamp - r.parking_timestamp).total_seconds() // 60)|int }} min
+        {% else %}
+          -
+        {% endif %}
+      </td>
+      <td>₹{{ r.parking_cost or 0 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

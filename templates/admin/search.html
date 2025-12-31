@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include '/admin/nav.html' %}
+
+<div class="container mt-4">
+    <h5>🔍 Search Parking Lots</h5>
+    <form method="GET" action="/admin/search_lots" class="mb-3 d-flex gap-2">
+        <select name="search_by" id="search_by" class="form-select w-auto">
+            <option value="location">Location</option>
+            <option value="address">Address</option>
+            <option value="price">Price</option>
+            <option value="pincode">Pincode</option>
+        </select>
+
+        <input type="text" name="query" class="form-control w-50" placeholder="e.g., Dehradun, 248001, etc." required>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+{% endblock %}

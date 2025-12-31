@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Spot {{ spot.spot_number }} Details</h3>
+    <p>Status: <strong>{{ 'Available' if spot.status == 'A' else 'Occupied' }}</strong></p>
+    {% if reservation %}
+    <p><strong>Reserved by:</strong> {{ reservation.user.name }}</p>
+    <p><strong>Vehicle No:</strong> {{ reservation.vehicle_no }}</p>
+    <p><strong>Date/time of parking :</strong> {{ reservation.parking_timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+    <p><strong>Estimated Parking Cost:</strong> ₹{{parking_cost }}</p>
+    {% else %}
+    <p>No reservation data available.</p>
+    {% endif %}
+    <a href="{{ url_for('view_parking_lot', lot_id=spot.lot_id) }}" class="btn btn-secondary">Back to Lot</a>
+
+</div>
+{% endblock %}

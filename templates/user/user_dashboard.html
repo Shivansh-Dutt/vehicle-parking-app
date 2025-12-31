@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include '/user/nav.html' %}
+
+<div class="container mt-4">
+    <!-- 🕒 Recent Parking History -->
+    <h5>Recent Parking History</h5>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Location</th>
+                <th>Vehicle No</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reservations %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.spot.lot.prime_location_name }}</td>
+                <td>{{ r.vehicle_no }}</td>
+                <td title="{{ r.parking_timestamp }}">
+                    {{ r.parking_timestamp.strftime('%b %d, %Y %I:%M %p') }}
+                </td>
+                <td>
+                    {% if r.leaving_timestamp %}
+                    <span class="badge bg-success">Parked Out</span>
+                    {% else %}
+                    <a href="/release/{{ r.id }}" class="btn btn-sm btn-warning">Release</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 🔍 Search by Location -->
+    {% if not search_location %}
+    <form method="POST" action="/user/search" class="mb-3">
+        <label for="location">Search parking @location/pin code:</label>
+        <input type="text" name="search_location" class="form-control" placeholder="e.g. 400028 or Dadar" required>
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+    {% else %}
+    <div class="alert alert-info">
+        Showing results for: <strong>{{ search_location }}</strong>
+        <a href="/user/dashboard" class="btn btn-sm btn-outline-secondary float-end">Clear Search</a>
+    </div>
+    {% endif %}
+
+    <!-- 🅿️ Available Parking Lots -->
+    {% if lots %}
+    <hr>
+    <h5>Available Parking Lots</h5>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Address</th>
+                <th>Available Spots</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lot in lots %}
+            <tr>
+                <td>{{ lot.id }}</td>
+                <td>{{ lot.address }}</td>
+                <td>{{ available_spots[lot.id] }}</td>
+                <td>
+                    {% if available_spots[lot.id] > 0 %}
+                    <a href="/book/{{ lot.id }}" class="btn btn-sm btn-primary">Book</a>
+                    {% else %}
+                    <span class="badge bg-danger">Full</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif search_location %}
+    <div class="alert alert-warning">
+        No parking lots available for "<strong>{{ search_location }}</strong>".
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

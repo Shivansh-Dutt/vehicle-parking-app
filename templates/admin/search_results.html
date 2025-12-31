@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include '/admin/nav.html' %}
+
+<div class="container mt-4">
+    <h5>Search Results for "{{ query }}" by "{{ search_by }}"</h5>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if lots %}
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Location</th>
+                    <th>Address</th>
+                    <th>Price/hr</th>
+                    <th>Pincode</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lot in lots %}
+                <tr>
+                    <td>{{ lot.id }}</td>
+                    <td>{{ lot.prime_location_name }}</td>
+                    <td>{{ lot.address }}</td>
+                    <td>{{ lot.price_per_hour }}</td>
+                    <td>{{ lot.pincode }}</td>
+                    <td>
+                        <a href="/admin/parking_lot/{{ lot.id }}" class="btn btn-sm btn-info">View</a>
+                        <a href="/admin/parking_lot/edit/{{ lot.id }}" class="btn btn-sm btn-warning">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No matching parking lots found.</p>
+    {% endif %}
+</div>
+{% endblock %}

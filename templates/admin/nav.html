@@ -1,0 +1,18 @@
+
+    <!-- nav.html -->
+    <div
+        style="background-color: #b2f2bb; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #4caf50;">
+        <div>
+            <span style="color: red; font-weight: bold; font-size: 18px;">Welcome to Admin</span>
+            &nbsp;&nbsp;
+            <a href="{{ url_for('admin_dashboard') }}"
+                style="text-decoration: none; color: black; font-weight: bold;">Home</a> |
+            <a href="{{ url_for('view_users') }}"
+                style="text-decoration: none; color: black; font-weight: bold;">Users</a> |
+            <a href="{{url_for('search')}}" style="text-decoration: none; color: black; font-weight: bold;">Search</a> |
+            <a href="{{url_for('view_all_reservations')}}" style="text-decoration: none; color: black; font-weight: bold;">Summary</a> 
+        </div>
+        <div>
+            <a href="{{ url_for('logout') }}" style="text-decoration: none; color: black; font-weight: bold;">Logout</a>
+        </div>
+    </div>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3 class="mb-3">Create Parking Lot</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="prime_location_name" class="form-label">Location Name</label>
+            <input id="prime_location_name" name="prime_location_name" class="form-control" placeholder="e.g., Connaught Place">
+        </div>
+        <div class="mb-3">
+            <label for="price_per_hour" class="form-label">Price per Hour</label>
+            <input id="price_per_hour" name="price_per_hour" type="number" class="form-control" placeholder="e.g., 50">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Full Address</label>
+            <input id="address" name="address" class="form-control" placeholder="e.g., Near Metro Station">
+        </div>
+        <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input id="pincode" name="pincode" class="form-control" placeholder="e.g., 110001">
+        </div>
+        <div class="mb-3">
+            <label for="max_spots" class="form-label">Maximum Spots</label>
+            <input id="max_spots" name="max_spots" type="number" class="form-control" placeholder="e.g., 20">
+        </div>
+        <button class="btn btn-success">Create Lot</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

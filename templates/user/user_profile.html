@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{%include '/user/nav.html'%}
+<div class="container mt-4">
+    <h3>Edit Profile</h3>
+    <form method="POST" action="{{url_for('user_profile')}}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input name="name" id="name" class="form-control" value="{{user.name}}">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Id</label>
+            <input name="email" id="email" class="form-control" value="{{user.email}}">
+        </div>
+                <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input name="address" id="address" class="form-control" value="{{user.address}}">
+        </div>
+                <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input name="pincode" id="pincode" class="form-control" value="{{user.pincode}}">
+        </div>
+
+        <button class="btn btn-primary">Confirm Edit</button>
+        <a href="/" class="btn btn-secondary ">Cancel</a>
+    </form>
+</div>
+{% endblock %}

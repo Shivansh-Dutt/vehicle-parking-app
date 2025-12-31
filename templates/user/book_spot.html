@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Book the Parking spot</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="spot_id" class="form-label">Spot Id</label>
+            <input name="spot_id" id="spot_id" class="form-control" value="{{spot.id}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="lot_id" class="form-label">Lot Id</label>
+            <input name="lot_id" id="lot_id" type="number" class="form-control" value="{{ spot.lot_id }}"  disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="user_id" class="form-label">User Id</label>
+            <input name="user_id" id="user_id" class="form-control" value="{{user.id }}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="vehicle_number" class="form-label">Vehicle Number</label>
+            <input name="vehicle_number" id="vehicle_number" class="form-control" placeholder= "eg. uk07..." >
+        </div>
+
+        <button class="btn btn-primary">Book Spot</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

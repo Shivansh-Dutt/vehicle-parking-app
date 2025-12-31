@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Edit Parking Lot</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="prime_location_name" class="form-label">Location Name</label>
+            <input name="prime_location_name" id="prime_location_name" class="form-control" value="{{ lot.prime_location_name }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="price_per_hour" class="form-label">Price Per Hour</label>
+            <input name="price_per_hour" id="price_per_hour" type="number" class="form-control" value="{{ lot.price_per_hour }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input name="address" id="address" class="form-control" value="{{ lot.address }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input name="pincode" id="pincode" class="form-control" value="{{ lot.pincode }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="max_spots" class="form-label">Maximum Spots</label>
+            <input name="max_spots" id="max_spots" class="form-control" value="{{ lot.max_spots }}">
+        </div>
+
+        <button class="btn btn-primary">Update Lot</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

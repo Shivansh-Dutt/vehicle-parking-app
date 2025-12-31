@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include '/admin/nav.html' %}
+<div class="container mt-4">
+    <h3>Registered Users</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Pincode</th>
+                <th>Role</th>
+                <th>reservations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            {%if u.role == "user" %}
+            <tr>
+                <td>{{ u.name }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.address }}</td>
+                <td>{{ u.pincode }}</td>
+                <td>{{ u.role }}</td>
+                <td>
+                    {% if u.reservations %}
+                    {% set active_reservations = u.reservations | selectattr("leaving_timestamp", "==", None) | list %}
+                    {% if active_reservations %}
+                    <ul class="mb-0">
+                        {% for r in active_reservations %}
+                        <li>
+                            {{ r.spot.lot.prime_location_name }} (Spot ID: {{ r.spot_id }}) —
+                            {{ r.parking_timestamp.strftime('%Y-%m-%d %H:%M') if r.parking_timestamp else 'N/A' }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    No active reservations
+                    {% endif %}
+                    {% else %}
+                    No reservations
+                    {% endif %}
+                </td>
+            </tr>
+            {%endif%}
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{url_for('admin_dashboard')}}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}
